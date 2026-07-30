@@ -56,9 +56,11 @@ const movieSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      default: "N/A",
     },
     posterURL: {
       type: String,
+      default: "N/A",
     },
     rating: {
       type: Number,

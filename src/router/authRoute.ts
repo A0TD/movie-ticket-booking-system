@@ -1,7 +1,7 @@
-import {Router} from 'express'
-import * as methods from '../controller/authController.ts'
+import { Router } from "express";
+import * as methods from "../controller/authController.ts";
 
-const router = Router()
+const router = Router();
 
 // Tags
 /**
@@ -10,13 +10,13 @@ const router = Router()
  *   name: Auth
  *   description: The authentication routes!
  */
-
+// Routes
 /**
  * @swagger
  * /auth/signup:
  *   post:
  *     tags: [Auth]
- *     summary: User registeration! 
+ *     summary: User registeration!
  *     requestBody:
  *       required: true
  *       content:
@@ -26,12 +26,12 @@ const router = Router()
  *     responses:
  *       200:
  *         description: Successfully signed up!
- *       404:
+ *       400:
  *         description: Bad request/Missing data!
  *       500:
  *         description: Some server error!
  */
-router.post('/signup',methods.register)
+router.post("/signup", methods.register);
 /**
  * @swagger
  * /auth/signin:
@@ -47,12 +47,12 @@ router.post('/signup',methods.register)
  *     responses:
  *       200:
  *         description: Signed in successfully!
- *       404:
+ *       400:
  *         description: Bad request/Missing data!
  *       500:
  *         description: Some server error!
  */
-router.post('/signin',methods.login)
+router.post("/signin", methods.login);
 /**
  * @swagger
  * /auth/signout:
@@ -65,6 +65,6 @@ router.post('/signin',methods.login)
  *       500:
  *         description: Some server error!
  */
-router.get('signout',methods.logout)
+router.get("signout", methods.logout);
 
-export default router
+export default router;
