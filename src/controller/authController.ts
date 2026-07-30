@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/userModel.ts";
@@ -60,3 +60,6 @@ const logout = (req: Request, res: Response) => {
     console.error(`Error caught: ${error}`);
   }
 };
+
+
+export {register,login,logout}
