@@ -40,42 +40,41 @@ import mongoose from "mongoose";
  *         rating: 0
  *         status: Coming Soon
  */
-const movieSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-    },
-    genre: {
-      type: String,
-      required: true,
-    },
-    duration: {
-      type: Number,
-      required: true,
-    },
-    description: {
-      type: String,
-      default: "N/A",
-    },
-    posterURL: {
-      type: String,
-      default: "N/A",
-    },
-    rating: {
-      type: Number,
-      min: 0,
-      max: 5,
-      default: 0,
-    },
-    status: {
-      type: String,
-      enum: ["Now Showing", "Coming Soon"],
-      default: "Coming Soon",
-    },
+const movieSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
   },
-  { strict: false },
-);
+  genre: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  description: {
+    type: String,
+    default: "N/A",
+  },
+  posterURL: {
+    type: String,
+    default: "N/A",
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
+    default: 0,
+  },
+  status: {
+    type: String,
+    enum: ["Now Showing", "Coming Soon"],
+    default: "Coming Soon",
+  },
+});
 
 const Movie = mongoose.model("Movie", movieSchema);
 

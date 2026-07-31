@@ -23,6 +23,7 @@ const register = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(`Error caught: ${error}`);
+    res.status(500).send(`Error caught: ${error}`);
   }
 };
 
@@ -49,6 +50,7 @@ const login = async (req: Request, res: Response) => {
     return res.status(200).send("Successfully signed in!");
   } catch (error) {
     console.error(`Error caught: ${error}`);
+    res.status(500).send(`Error caught: ${error}`);
   }
 };
 
@@ -58,8 +60,8 @@ const logout = (req: Request, res: Response) => {
     res.status(200).send("Signed out successfully!");
   } catch (error) {
     console.error(`Error caught: ${error}`);
+    res.status(500).send(`Error caught: ${error}`);
   }
 };
 
-
-export {register,login,logout}
+export { register, login, logout };

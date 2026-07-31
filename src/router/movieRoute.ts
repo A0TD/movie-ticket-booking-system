@@ -9,7 +9,7 @@ const router = Router();
  * @swagger
  * tags:
  *   name: Movies
- *   description: The authentication routes!
+ *   description: The movies routes!
  */
 // Routes
 /**
@@ -20,8 +20,8 @@ const router = Router();
  *     summary: Returns a list of all the movies
  *     responses:
  *       200:
- *         description: List of all the movies! 
- *         content: 
+ *         description: List of all the movies!
+ *         content:
  *           application/json:
  *             schema:
  *               type: array
@@ -48,7 +48,7 @@ router.get("/", authenticate, methods.getAllMovies);
  *     responses:
  *       200:
  *         description: Successfully added movie!
- *         content: 
+ *         content:
  *           application/json:
  *             schema:
  *               $ref: '#components/schemas/Movie'
@@ -60,5 +60,63 @@ router.get("/", authenticate, methods.getAllMovies);
  *         description: Some server error!
  */
 router.post("/", authorize, methods.addMovie);
+/**
+ * @swagger
+ * /movies/{id}:
+ *   put:
+ *     tags: [Movies]
+ *     summary: Updates a single movie by ID!
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the movie to be updated!
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Movie'
+ *     responses:
+ *       200:
+ *         description: Successfully updated the movie!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Movie'
+ *       403:
+ *         description: Unauthorized access!
+ *       404:
+ *         description: Movie not found! Try a different ID!
+ *       500:
+ *         description: Some server error!
+ */
+router.put("/:id", authorize, methods.updateMovie);
+/**
+ * @swagger
+ * /movies/{id}:
+ *   delete:
+ *     tags: [Movies]
+ *     summary: Deletes a single movie by ID!
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the movie to be deleted!
+ *     responses:
+ *       200:
+ *         description: Successfully deleted!
+ *       403:
+ *         description: Unauthorized access!
+ *       404:
+ *         description: Movie not found! Try a different ID!
+ *       500:
+ *         description: Some server error!
+ */
+router.delete("/:id", authorize, methods.deleteMovie);
 
 export default router;
