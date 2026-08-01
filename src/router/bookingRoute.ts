@@ -1,6 +1,6 @@
 import {Router} from 'express'
-import * as methods from '../controller/bookingController'
-import { authenticate,authorize } from '../middleware/authGuard'
+import * as methods from '../controller/bookingController.ts'
+import { authenticate,authorize } from '../middleware/authGuard.ts'
 
 const router = Router()
 

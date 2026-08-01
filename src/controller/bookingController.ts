@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import Booking from "../models/bookingModel";
+import Booking from "../models/bookingModel.ts";
 
 const makeBooking = async (req: Request, res: Response) => {
   try {
