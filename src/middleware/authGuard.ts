@@ -14,6 +14,7 @@ const authenticate = async (
     next();
   } catch (error) {
     console.error(`Error caught: ${error}`);
+    res.status(500).send(`Error caught: ${error}`);
   }
 };
 
@@ -37,6 +38,7 @@ const authorize = async (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (error) {
     console.error(`Error caught: ${error}`);
+    res.status(500).send(`Error caught: ${error}`);
   }
 };
 
