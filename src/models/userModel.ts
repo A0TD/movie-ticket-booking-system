@@ -1,4 +1,20 @@
 import mongoose from "mongoose";
+import { z } from "zod";
+
+export const zodRegisterSchema = z.object({
+  body: z.object({
+    fullName: z.string("Username must be at least 3 characters").min(3),
+    email: z.email("Invalid email format"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+  }),
+});
+
+export const zodLoginSchema = z.object({
+  body: z.object({
+    email: z.email("Invalid email format"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+  }),
+});
 /**
  * @swagger
  * components:

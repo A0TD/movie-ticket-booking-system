@@ -1,5 +1,7 @@
 import { Router } from "express";
 import * as methods from "../controller/authController.ts";
+import validate from "../middleware/validation.ts";
+import { zodRegisterSchema, zodLoginSchema } from "../models/userModel.ts";
 
 const router = Router();
 
@@ -16,7 +18,7 @@ const router = Router();
  * /auth/signup:
  *   post:
  *     tags: [Auth]
- *     summary: User registeration!
+ *     summary: User registration!
  *     requestBody:
  *       required: true
  *       content:
@@ -31,7 +33,7 @@ const router = Router();
  *       500:
  *         description: Some server error!
  */
-router.post("/signup", methods.register);
+router.post("/signup", validate(zodRegisterSchema), methods.register);
 /**
  * @swagger
  * /auth/signin:
@@ -52,7 +54,7 @@ router.post("/signup", methods.register);
  *       500:
  *         description: Some server error!
  */
-router.post("/signin", methods.login);
+router.post("/signin", validate(zodLoginSchema), methods.login);
 /**
  * @swagger
  * /auth/signout:
@@ -65,6 +67,6 @@ router.post("/signin", methods.login);
  *       500:
  *         description: Some server error!
  */
-router.get("signout", methods.logout);
+router.get("/signout", methods.logout);
 
 export default router;

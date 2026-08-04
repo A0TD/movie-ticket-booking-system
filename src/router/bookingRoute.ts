@@ -38,7 +38,7 @@ const router = Router()
 router.post("/",authenticate,methods.makeBooking)
 /**
  * @swagger
- * /booking:
+ * /booking/{id}:
  *   delete:
  *     tags: [Booking]
  *     summary: Deletes a specific booking by ID!
@@ -59,7 +59,7 @@ router.post("/",authenticate,methods.makeBooking)
  *       500:
  *         description: Some server error!
  */
-router.delete("/",authenticate,methods.cancelBooking)
+router.delete("/:id",authenticate,methods.cancelBooking)
 /**
  * @swagger
  * /booking:
