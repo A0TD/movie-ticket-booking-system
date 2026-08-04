@@ -11,16 +11,12 @@ const authenticate = async (
 
     if (!token) return res.status(401).send("Authentication failure!");
 
-    const verification = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string,
-    ) as {
+    const user = jwt.verify(token, process.env.JWT_SECRET as string) as {
       id: number;
       role: string;
     };
 
-    if (verification.role !== "Customer")
-      return res.status(401).send("Authentication failure!");
+    res.locals.user = user.id;
 
     next();
   } catch (error) {
@@ -35,16 +31,15 @@ const authorize = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!token) return res.status(401).send("Authentication failure!");
 
-    const verification = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string,
-    ) as {
+    const user = jwt.verify(token, process.env.JWT_SECRET as string) as {
       id: number;
       role: string;
     };
 
-    if (verification.role !== "Cinema Admin")
+    if (user.role !== "Admin")
       return res.status(403).send("Authorization failure!");
+
+    res.locals.user = user.id;
 
     next();
   } catch (error) {

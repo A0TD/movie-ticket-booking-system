@@ -15,6 +15,7 @@ export const zodLoginSchema = z.object({
     password: z.string().min(8, "Password must be at least 8 characters"),
   }),
 });
+
 /**
  * @swagger
  * components:
@@ -60,7 +61,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["Customer", "Cinema Admin"],
+    enum: ["Customer", "Admin"],
     default: "Customer",
   },
 });

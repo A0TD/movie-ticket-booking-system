@@ -5,6 +5,7 @@ import specs from "./config/swaggerUIConfig.ts";
 import authRouter from "./router/authRoute.ts";
 import movieRouter from "./router/movieRoute.ts";
 import bookingRouter from "./router/bookingRoute.ts";
+import adminRouter from "./router/adminRoute.ts";
 import { requestLogger } from "./middleware/logger.ts";
 
 const app = express();
@@ -20,5 +21,7 @@ app.use("/auth", authRouter);
 app.use("/movies", movieRouter);
 
 app.use("/booking", bookingRouter);
+
+app.use("/admin", adminRouter);
 
 export default app;

@@ -41,7 +41,7 @@ const login = async (req: Request, res: Response) => {
       return res.status(400).send("Incorrect email or password!");
 
     const token = jwt.sign(
-      { id: foundUser.id, role: foundUser.role },
+      { id: foundUser._id.toString(), role: foundUser.role },
       process.env.JWT_SECRET as string,
       { expiresIn: "60m" },
     );
