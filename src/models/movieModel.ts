@@ -1,4 +1,29 @@
 import mongoose from "mongoose";
+import { z } from "zod";
+
+export const zodMovieSchema = z.object({
+  body: z.object({
+    movie: z.object({
+      title: z
+        .string()
+        .min(2)
+        .refine(
+          async (title) => {
+            const existingMovie = await Movie.findOne({ title });
+            return !existingMovie;
+          },
+          { message: "A movie with this title already exists." },
+        ),
+      genre: z.string().min(2).max(30),
+      duration: z.number().min(30),
+      description: z.string().min(10).optional(),
+      posterURL: z.url().optional(),
+      rating: z.number().min(0).max(5).optional(),
+      status: z.enum(["Now Showing", "Coming Soon"]).optional(),
+    }),
+  }),
+});
+
 /**
  * @swagger
  * components:
@@ -32,19 +57,20 @@ import mongoose from "mongoose";
  *           type: string
  *           description: Whether the movie is coming soon or currently being shown!
  *       example:
- *         title: Spider-Man brand new day!
- *         genre: Marvel
- *         duration: 145
- *         description: A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.
- *         posterURL: [https://www.imdb.com/title/tt22084616/mediaviewer/rm749131010/]
- *         rating: 0
- *         status: Coming Soon
+ *         movie:
+ *           title: Spider-Man brand new day!
+ *           genre: Marvel
+ *           duration: 145
+ *           description: A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.
+ *           posterURL: https://www.imdb.com/title/tt22084616/mediaviewer/rm749131010/
+ *           rating: 0
+ *           status: Coming Soon
  */
 const movieSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    trim: true,
+    unique: true,
   },
   genre: {
     type: String,

@@ -1,6 +1,8 @@
 import { Router } from "express";
 import * as methods from "../controller/movieController.ts";
 import { authenticate, authorize } from "../middleware/authGuard.ts";
+import validate from "../middleware/validation.ts";
+import { zodMovieSchema } from "../models/movieModel.ts";
 
 const router = Router();
 
@@ -46,12 +48,15 @@ router.get("/", authenticate, methods.getAllMovies);
  *           schema:
  *             $ref: '#components/schemas/Movie'
  *     responses:
- *       200:
+ *       201:
  *         description: Successfully added movie!
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#components/schemas/Movie'
+ *               type: object
+ *               properties:
+ *                 movie:
+ *                   $ref: '#components/schemas/Movie'
  *       400:
  *         description: Bad request/Missing data!
  *       403:
@@ -59,7 +64,7 @@ router.get("/", authenticate, methods.getAllMovies);
  *       500:
  *         description: Some server error!
  */
-router.post("/", authorize, methods.addMovie);
+router.post("/", authorize, validate(zodMovieSchema), methods.addMovie);
 /**
  * @swagger
  * /movies/{id}:
@@ -93,7 +98,7 @@ router.post("/", authorize, methods.addMovie);
  *       500:
  *         description: Some server error!
  */
-router.put("/:id", authorize, methods.updateMovie);
+router.put("/:id", authorize, validate(zodMovieSchema), methods.updateMovie);
 /**
  * @swagger
  * /movies/{id}:

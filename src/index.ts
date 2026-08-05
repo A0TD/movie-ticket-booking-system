@@ -4,16 +4,12 @@ import "dotenv/config";
 
 const PORT = process.env.PORT || 3000;
 
-async function startServer() {
-  try {
-    await connectDB();
-
+connectDB()
+  .then(() => {
     app.listen(PORT, () => {
       console.log(`Listening on port ${PORT}`);
     });
-  } catch (error) {
+  })
+  .catch((error) => {
     console.error("Couldn't connect to the database! " + error);
-  }
-}
-
-startServer();
+  });

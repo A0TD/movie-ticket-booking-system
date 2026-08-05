@@ -27,7 +27,7 @@ const addMovie = async (req: Request, res: Response) => {
       status,
     });
 
-    return res.status(201).json(addedMovie);
+    return res.status(201).json({ movie: addedMovie });
   } catch (error) {
     console.error(`Error caught: ${error}`);
     res.status(500).send(`Error caught: ${error}`);
