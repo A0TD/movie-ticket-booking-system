@@ -48,12 +48,12 @@ const updateMovie = async (req: Request, res: Response) => {
       },
     );
 
-    if (!updateMovie)
+    if (!updatedMovie)
       return res.status(404).send("Movie not found! Try a different id");
 
     return res.status(200).json({
       message: "Updated movie!",
-      data: updatedMovie,
+      movie: updatedMovie,
     });
   } catch (error) {
     console.error(`Error caught: ${error}`);
