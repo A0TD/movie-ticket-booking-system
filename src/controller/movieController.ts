@@ -43,8 +43,8 @@ const updateMovie = async (req: Request, res: Response) => {
       id,
       { title, genre, duration, description, posterURL, rating, status },
       {
-        new: true,
         runValidators: true,
+        returnDocument: 'after',
       },
     );
 

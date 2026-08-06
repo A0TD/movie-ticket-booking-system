@@ -15,7 +15,7 @@ export const zodMovieSchema = z.object({
           { message: "A movie with this title already exists." },
         ),
       genre: z.string().min(2).max(30),
-      duration: z.number().min(30),
+      duration: z.number().int().min(30),
       description: z.string().min(10).optional(),
       posterURL: z.url().optional(),
       rating: z.number().min(0).max(5).optional(),

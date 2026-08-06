@@ -6,6 +6,7 @@ import authRouter from "./router/authRoute.ts";
 import movieRouter from "./router/movieRoute.ts";
 import bookingRouter from "./router/bookingRoute.ts";
 import adminRouter from "./router/adminRoute.ts";
+import showtimeRouter from "./router/showtimeRoute.ts";
 import { requestLogger } from "./middleware/logger.ts";
 
 const app = express();
@@ -23,5 +24,7 @@ app.use("/movies", movieRouter);
 app.use("/booking", bookingRouter);
 
 app.use("/admin", adminRouter);
+
+app.use("/showtime", showtimeRouter);
 
 export default app;
