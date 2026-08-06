@@ -1,10 +1,20 @@
 import mongoose from "mongoose";
+import Movie from "./movieModel.ts";
 import { z } from "zod";
 
 export const zodShowtimeSchema = z.object({
   body: z.object({
     showtime: z.object({
-      movie: z.string().regex(/^[0-9a-fA-F]{24}$/, "Invalid Movie ID format"),
+      movie: z
+        .string()
+        .regex(/^[0-9a-fA-F]{24}$/, "Invalid Movie ID format")
+        .refine(
+          async (movie) => {
+            const existingMovie = await Movie.findById(movie);
+            return Boolean(existingMovie);
+          },
+          { message: "That movie doesn't exist." },
+        ),
       hallNumber: z
         .number()
         .int()
