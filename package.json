@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch src -e ts,json --exec \"node --experimental-strip-types src/index.ts\""
+    "dev": "nodemon --watch src -e ts,json --exec \"node --experimental-strip-types src/index.ts\"",
+    "start": "npx tsx src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.6.2",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.9.1",
     "swagger-jsdoc": "^6.3.0",

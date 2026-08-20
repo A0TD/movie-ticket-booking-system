@@ -4,16 +4,7 @@ import { z } from "zod";
 export const zodMovieSchema = z.object({
   body: z.object({
     movie: z.object({
-      title: z
-        .string()
-        .min(2)
-        .refine(
-          async (title) => {
-            const existingMovie = await Movie.findOne({ title });
-            return !existingMovie;
-          },
-          { message: "A movie with this title already exists." },
-        ),
+      title: z.string().min(2),
       genre: z.string().min(2).max(30),
       duration: z.number().int().min(30),
       description: z.string().min(10).optional(),

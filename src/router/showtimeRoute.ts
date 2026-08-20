@@ -14,7 +14,7 @@ const router = Router();
 
 /**
  * @swagger
- * /showtime:
+ * /showtimes:
  *   get:
  *     tags: [Showtimes]
  *     summary: Returns a list of all showtimes!
@@ -35,7 +35,7 @@ const router = Router();
 router.get("/", authenticate, methods.getAllShowtimes);
 /**
  * @swagger
- * /showtime:
+ * /showtimes:
  *   post:
  *     tags: [Showtimes]
  *     summary: Adds a new showtime!
@@ -61,7 +61,7 @@ router.get("/", authenticate, methods.getAllShowtimes);
 router.post("/", validate(zodShowtimeSchema), authorize, methods.addShowtime);
 /**
  * @swagger
- * /showtime/{id}:
+ * /showtimes/{id}:
  *   put:
  *     tags: [Showtimes]
  *     summary: Updates a showtime by ID!
@@ -101,7 +101,7 @@ router.put(
 );
 /**
  * @swagger
- * /showtime/{id}:
+ * /showtimes/{id}:
  *   delete:
  *     tags: [Showtimes]
  *     summary: Deletes a showtime by id!

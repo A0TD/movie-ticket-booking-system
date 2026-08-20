@@ -1,4 +1,38 @@
 import mongoose from "mongoose";
+import User from "./userModel.ts";
+import Showtime from "./showtimeModel.ts";
+import { z } from "zod";
+
+export const zodBookingSchema = z.object({
+  body: z.object({
+    booking: z.object({
+      customer: z
+        .string()
+        .regex(/^[0-9a-fA-F]{24}$/, "Invalid user ID format")
+        .refine(async (customer) => {
+          const existingCustomer = await User.findById(customer);
+          return Boolean(existingCustomer);
+        }),
+      showtime: z
+        .string()
+        .regex(/^[0-9a-fA-F]{24}$/, "Invalid showtime ID format")
+        .refine(
+          async (showtime) => {
+            const existingShowtime = await Showtime.findById(showtime);
+            return Boolean(existingShowtime);
+          },
+          { message: "That showtime doesn't exist." },
+        ),
+      selectedSeats: z.array(
+        z.object({
+          seatNumber: z.string().regex(/^[A-Z][0-9]+$/),
+        }),
+      ),
+      totalPrice: z.number().positive(),
+      bookingStatus: z.enum(["Pending", "Confirmed", "Cancelled"]),
+    }),
+  }),
+});
 
 /**
  * @swagger
@@ -32,11 +66,12 @@ import mongoose from "mongoose";
  *           type: string
  *           description: Whether the booking is pending, confirmed, or cancelled!
  *       example:
- *         customer: "58c62c2f9b1d8a2d88f31e21"
- *         showtime: "12c64c7f5b7c8b2d28f21b11"
- *         selectedSeats: ["b2","b3","b4"]
- *         totalPrice: 240
- *         bookingStatus: "Pending"
+ *         booking:
+ *           customer: "58c62c2f9b1d8a2d88f31e21"
+ *           showtime: "12c64c7f5b7c8b2d28f21b11"
+ *           selectedSeats: ["b2","b3","b4"]
+ *           totalPrice: 240
+ *           bookingStatus: "Pending"
  */
 const bookingSchema = new mongoose.Schema({
   customer: {

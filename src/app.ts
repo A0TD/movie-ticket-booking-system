@@ -1,5 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import rateLimit from "express-rate-limit";
 import swaggerUI from "swagger-ui-express";
 import specs from "./config/swaggerUIConfig.ts";
 import authRouter from "./router/authRoute.ts";
@@ -9,8 +10,10 @@ import adminRouter from "./router/adminRoute.ts";
 import showtimeRouter from "./router/showtimeRoute.ts";
 import { requestLogger } from "./middleware/logger.ts";
 
+
 const app = express();
 
+//app.use(rateLimit())
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
@@ -25,6 +28,6 @@ app.use("/booking", bookingRouter);
 
 app.use("/admin", adminRouter);
 
-app.use("/showtime", showtimeRouter);
+app.use("/showtimes", showtimeRouter);
 
 export default app;

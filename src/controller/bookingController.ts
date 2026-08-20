@@ -4,7 +4,7 @@ import Booking from "../models/bookingModel.ts";
 const makeBooking = async (req: Request, res: Response) => {
   try {
     const { customer, showtime, selectedSeats, totalPrice, bookingStatus } =
-      req.body.Booking;
+      req.body.booking;
 
     const newBooking = await Booking.create({
       customer,
@@ -16,7 +16,7 @@ const makeBooking = async (req: Request, res: Response) => {
 
     return res.status(201).json({
       message: "Successfully booked!",
-      data: newBooking,
+      booking: newBooking,
     });
   } catch (error) {
     console.error(`Error caught: ${error}`);

@@ -17,6 +17,16 @@ const addMovie = async (req: Request, res: Response) => {
     const { title, genre, duration, description, posterURL, rating, status } =
       req.body.movie;
 
+    const duplicate = await Movie.findOne({
+      title,
+    });
+
+    if (duplicate) {
+      return res
+        .status(400)
+        .json({ message: "A movie with this title already exists." });
+    }
+
     const addedMovie = await Movie.create({
       title,
       genre,
@@ -39,12 +49,24 @@ const updateMovie = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { title, genre, duration, description, posterURL, rating, status } =
       req.body.movie;
+
+    const duplicate = await Movie.findOne({
+      title,
+      _id: { $ne: id },
+    });
+
+    if (duplicate) {
+      return res
+        .status(400)
+        .json({ message: "A movie with this title already exists." });
+    }
+
     const updatedMovie = await Movie.findByIdAndUpdate(
       id,
       { title, genre, duration, description, posterURL, rating, status },
       {
         runValidators: true,
-        returnDocument: 'after',
+        returnDocument: "after",
       },
     );
 

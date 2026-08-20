@@ -21,6 +21,7 @@ const register = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
     });
+    return res.status(201).send("Account Created!")
   } catch (error) {
     console.error(`Error caught: ${error}`);
     res.status(500).send(`Error caught: ${error}`);

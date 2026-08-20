@@ -12,7 +12,7 @@ const router = Router();
 
 /**
  * @swagger
- * /admin/user:
+ * /admin/users:
  *   get:
  *     tags: [Admin]
  *     summary: Returns a list of all users!
@@ -30,7 +30,7 @@ const router = Router();
  *       500:
  *         description: Some server error!
  */
-router.get("/user", authorize, methods.getAllUsers);
+router.get("/users", authorize, methods.getAllUsers);
 /**
  * @swagger
  * /admin/requestAdmin:

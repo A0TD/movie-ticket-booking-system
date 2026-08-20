@@ -16,7 +16,7 @@ const authenticate = async (
       role: string;
     };
 
-    res.locals.user = user.id;
+    res.locals.user = user;
 
     next();
   } catch (error) {
@@ -39,7 +39,7 @@ const authorize = async (req: Request, res: Response, next: NextFunction) => {
     if (user.role !== "Admin")
       return res.status(403).send("Authorization failure!");
 
-    res.locals.user = user.id;
+    res.locals.user = user;
 
     next();
   } catch (error) {
